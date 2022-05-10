@@ -432,6 +432,7 @@ registerGcMetrics store =
 #if MIN_VERSION_base(4,12,0)
      , ("rts.gc.init_cpu_ms"              , Counter . nsToMs . Stats.init_cpu_ns)
      , ("rts.gc.init_wall_ms"             , Counter . nsToMs . Stats.init_elapsed_ns)
+     , ("rts.gc.current_mem_used"         , Gauge . fromIntegral . Stats.gcdetails_mem_in_use_bytes . Stats.gc) -- rts memory in use in bytes
 #endif
      , ("rts.gc.mutator_cpu_ms"           , Counter . nsToMs . Stats.mutator_cpu_ns)
      , ("rts.gc.mutator_wall_ms"          , Counter . nsToMs . Stats.mutator_elapsed_ns)
@@ -440,7 +441,7 @@ registerGcMetrics store =
      , ("rts.gc.cpu_ms"                   , Counter . nsToMs . Stats.cpu_ns)
      , ("rts.gc.wall_ms"                  , Counter . nsToMs . Stats.elapsed_ns)
      , ("rts.gc.max_bytes_used"           , Gauge . fromIntegral . Stats.max_live_bytes)
-     , ("rts.gc.current_bytes_used"       , Gauge . fromIntegral . Stats.gcdetails_live_bytes . Stats.gc)
+     , ("rts.gc.current_bytes_used"       , Gauge . fromIntegral . Stats.gcdetails_live_bytes . Stats.gc) 
      , ("rts.gc.current_bytes_slop"       , Gauge . fromIntegral . Stats.gcdetails_slop_bytes . Stats.gc)
      , ("rts.gc.max_bytes_slop"           , Gauge . fromIntegral . Stats.max_slop_bytes)
      , ("rts.gc.peak_megabytes_allocated" , Gauge . fromIntegral . (`quot` (1024*1024)) . Stats.max_mem_in_use_bytes)
