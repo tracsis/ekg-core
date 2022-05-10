@@ -433,6 +433,7 @@ registerGcMetrics store =
      , ("rts.gc.init_cpu_ms"              , Counter . nsToMs . Stats.init_cpu_ns)
      , ("rts.gc.init_wall_ms"             , Counter . nsToMs . Stats.init_elapsed_ns)
      , ("rts.gc.current_mem_used"         , Gauge . fromIntegral . Stats.gcdetails_mem_in_use_bytes . Stats.gc) -- rts memory in use in bytes
+     , ("rts.gc.current_large_objects_used" , Gauge . fromIntegral . Stats.gcdetails_large_objects_bytes  . Stats.gc) -- rts memory in use by large objects in bytes
 #endif
      , ("rts.gc.mutator_cpu_ms"           , Counter . nsToMs . Stats.mutator_cpu_ns)
      , ("rts.gc.mutator_wall_ms"          , Counter . nsToMs . Stats.mutator_elapsed_ns)
