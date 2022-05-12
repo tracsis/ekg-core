@@ -449,6 +449,14 @@ registerGcMetrics store =
      , ("rts.gc.par_tot_bytes_copied"     , Gauge . fromIntegral . Stats.par_copied_bytes)
      , ("rts.gc.par_avg_bytes_copied"     , Gauge . fromIntegral . Stats.par_copied_bytes)
      , ("rts.gc.par_max_bytes_copied"     , Gauge . fromIntegral . Stats.cumulative_par_max_copied_bytes)
+#if MIN_VERSION_base(4,15,0)
+     , ("rts.gc.nonmoving_gc_sync_cpu_ms"      , Counter . nsToMs . Stats.nonmoving_gc_sync_cpu_ns )
+     , ("rts.gc.nonmoving_gc_sync_wall_ms"     , Counter . nsToMs . Stats.nonmoving_gc_sync_elapsed_ns )
+     , ("rts.gc.nonmoving_gc_sync_max_wall_ms" , Counter . nsToMs . Stats.nonmoving_gc_sync_max_elapsed_ns )
+     , ("rts.gc.nonmoving_gc_cpu_ms"      , Counter . nsToMs . Stats.nonmoving_gc_cpu_ns )
+     , ("rts.gc.nonmoving_gc_wall_ms"     , Counter . nsToMs . Stats.nonmoving_gc_elapsed_ns )
+     , ("rts.gc.nonmoving_gc_max_wall_ms" , Counter . nsToMs . Stats.nonmoving_gc_max_elapsed_ns )
+#endif
      ])
     getRTSStats
 #else
